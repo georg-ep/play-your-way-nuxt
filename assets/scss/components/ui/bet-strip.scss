@@ -1,0 +1,33 @@
+.bet-strip {  
+  &_choices {    
+    display: flex;
+    align-items: center;
+    border: 2px solid #3e4346;
+    color: white;
+    font-size: 12px;
+  }
+}
+
+.label {
+  font-size: 12px;
+}
+
+.bet-block {
+  width: 100%;
+  text-align: center;
+  padding: 8px;
+  transition: ease-in-out 0.2s;
+
+  &:hover {
+    cursor: pointer;
+    background: #a166ab;
+  }
+}
+
+.selected {
+  background: #a166ab;
+}
+
+.bet-block:not(:last-child) {
+  border-right: 2px solid #3e4346;
+} 

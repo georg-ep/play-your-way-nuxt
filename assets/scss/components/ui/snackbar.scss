@@ -1,0 +1,58 @@
+.wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .snackbar {
+    position: absolute;
+    bottom: 32px;
+    width: calc(100% - 200px);
+    padding: 10px 30px;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    z-index: 3000;
+
+    img {
+      margin-right: 12px;
+    }
+  }
+
+  .success {
+    background: #6fba82;
+    color: white !important;
+  }
+  
+  .error {
+    background: #ef4e7b;
+    color: white !important;
+  }
+}
+.show {
+  animation: slideIn 1s;
+}
+
+.hidden {
+  animation: slideOut 1s;
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateY(300%);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideOut {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateX(300%);
+  }
+}

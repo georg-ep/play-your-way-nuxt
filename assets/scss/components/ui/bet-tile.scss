@@ -1,0 +1,81 @@
+.bet-tile {
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  &_title {
+    font-size: 20px;
+  }
+  &.buttons {
+    display: flex;
+  }
+  &_date {
+    font-size: 17px;
+    margin-bottom: 12px;
+  }
+  &_from-user {
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+  &_amount {
+    color: #1098ad;
+    font-weight: bold;
+    font-size: 28px;
+  }
+  &_game {
+    margin-top: 12px;
+  }
+}
+
+button:last-child {
+  margin-left: 20px;
+}
+
+.button {
+    padding: 8px;
+    border: 1px solid white;
+    background: black;
+    color: white;
+    border-radius: 8px;
+    transition: 0.5s;
+
+    &_accept {
+      border: 1px solid #07b39b;
+
+      &:hover {
+        border: 1px solid white;
+        color: #07b39b;
+        cursor: pointer;
+      }
+    }
+
+    &_decline {
+      border: 1px solid #ef4e7b;
+
+      &:hover {
+        border: 1px solid white;
+        color: #ef4e7b;
+        cursor: pointer;
+      }
+    }
+}
+
+.divider {
+  margin-top: 12px;
+}
+
+.hidden {
+  animation: hideTile 1s;
+}
+
+@keyframes hideTile {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    display: none;
+  }
+}

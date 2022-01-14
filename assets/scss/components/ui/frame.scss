@@ -1,0 +1,59 @@
+.frame {
+  display: flex;
+}
+
+.sidebar {
+  width: 200px !important;  
+  background: black;
+  height: 100vh;
+  color: white;
+  padding: 20px;
+  display: inline-flex;
+  flex-direction: column;
+  border-right: 2px solid rgba($color: white, $alpha: 0.2);
+
+  &_item {
+    margin: 15px 0;
+    font-size: 24px;
+    transition: 0.3s ease-in-out;
+    padding-left: 10px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    
+    &:hover {
+      cursor: pointer;
+      color: rgb(236, 169, 169);
+      background: rgba($color: white, $alpha: 0.1);
+      outline: thin solid rgba($color: white, $alpha: 0.2);
+    }
+  }
+}
+
+.selected-item {
+  color: #07b39b;
+  background: rgba($color: white, $alpha: 0.1);
+  outline: thin solid rgba($color: white, $alpha: 0.2);
+}
+
+.nav-bar {
+  background-color: black;
+  height: 50px;
+  width: 100% !important;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 10px 0;
+  border-bottom: 2px solid rgba($color: white, $alpha: 0.2);
+}
+
+.button {
+  &_trailing {
+    margin-right: 24px;
+  }
+}
+
+.content-body {
+  width: 100%;
+  padding: 35px 30px;
+}

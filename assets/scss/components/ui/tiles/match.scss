@@ -1,0 +1,85 @@
+.match-tile {
+  padding: 0px;
+  color: white;
+  font-size: 24px;
+  display: inline-block;
+  animation: 1s ease-out 0s 1 slideInFromLeft;
+  width: 100%;
+
+  &:hover {
+    cursor: pointer;
+    animation: slideInFromLeft 1s;
+  }
+
+  &_content {
+    background: black;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    transition: 0.2s ease-in-out;
+
+    &:hover {
+      background: rgba($color: white, $alpha: 0.1);
+      outline: thin solid rgba($color: white, $alpha: 0.2);
+    }
+
+    .match {
+      text-align: left;
+      .postponed {
+        color: red;
+      }
+      .teams {
+        display: flex;
+        align-items: center;
+
+        .team {
+          display: flex;
+
+          .score {
+            margin-left: 12px;
+          }
+        }
+      }
+    }
+
+    .date {
+      border: 1px solid #07b39b;
+      padding: 10px;
+      margin: 0 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      margin-right: 16px;
+      font-size: 12px;
+    }
+  }
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    opacity: 0;
+    transform: translateY(-1%);
+    transform: translateX(-1%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    transform: translateX(0);
+  }
+}
+
+.winner {
+  color: #07b39b;
+}
+.loser {
+  color: #f37055;
+}
+.draw {
+  color: #1098ad;
+}
+
+.postponed {
+  color: #f37055;
+}

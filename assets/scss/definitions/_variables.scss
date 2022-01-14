@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:200');
+
+html,
+body {
+  background: black;
+  height: 100vh;
+  width: 100vw !important;
+  overflow-x: hidden !important;
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+  font-family: 'Raleway';
+  color: white;
+  z-index: -1;
+}
+
+.headline {
+  color: white;
+  font-size: 20px;
+
+  &_large {
+    font-size: 32px;
+  }
+}
+
+.page-headline {
+  font-size: 40px;
+  margin-bottom: 24px;
+}
+
+.mb-24 {
+  margin-bottom: 24px;
+}
+
+.mb-4 {
+  margin-bottom: 4px;
+}
+
+.mt-24 {
+  margin-top: 24px;
+}
+
+.mh-16 {
+  margin: 0 16px;
+}
+
+@keyframes fadeOut {
+  to {
+    visibility: hidden;
+  }
+}
+
+@keyframes fadeIn {
+  to {
+    visibility: visible;
+  }
+}
+
+.gradient-border {
+  --borderWidth: 1px;
+  background: #1D1F20 !important;
+  position: relative;
+  z-index: 5;
+  display: inline-block;
+}
+.gradient-border:after {
+  content: '';
+  position: absolute;
+  top: calc(-1 * var(--borderWidth));
+  left: calc(-1 * var(--borderWidth));
+  height: calc(100% + var(--borderWidth) * 2);
+  width: calc(100% + var(--borderWidth) * 2);
+  background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);
+  z-index: -1;
+  animation: animatedgradient 3s ease alternate infinite;
+  background-size: 300% 300%;
+}
+
+.main-container {
+  outline: thin solid rgba($color: white, $alpha: 0.2);
+  color: white;
+  font-size: 12px;
+  padding: 10px;
+}
+
