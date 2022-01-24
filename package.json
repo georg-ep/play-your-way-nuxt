@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "devw": "cross-env DEV=1 nuxt",
-    "dev": "DEV=1 nuxt",
+    "dev": "nuxt",
     "build": "nuxt build",
     "heroku-postbuild": "npm run build",
     "start": "nuxt start",
