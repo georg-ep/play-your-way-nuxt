@@ -1,5 +1,35 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway:200');
 
+// breakpoints
+$break-xl: 192 * 0.625em;
+$break-xlg: 144 * 0.625em;
+$break-lgl: 126 * 0.625em;
+$break-lg: 120 * 0.625em;
+$break-lgs: 115.2 * 0.625em;
+$break-md: 98 * 0.625em;
+$break-mds: 92 * 0.625em;
+$break-smd: 84 * 0.625em;
+$break-smsm: 77 * 0.625em;
+$break-sm: 72 * 0.625em;
+$break-msm: 64 * 0.625em;
+$break-sms: 60 * 0.625em;
+$break-xs: 48 * 0.625em;
+$break-xsm: 40 * 0.625em;
+$break-xxs: 37.5 * 0.625em;
+$break-xxsc: 37 * 0.625em;
+$break-xxxs: 35 * 0.625em;
+
+// according to Google Material Design
+$breakpoints: (
+  "xs": $break-xs,
+  "sm": $break-sm,
+  "smd": $break-smd,
+  "md": $break-md,
+  "lg": $break-lg,
+  "xl": $break-xlg,
+);
+
+
 html,
 body {
   background: black;
@@ -20,6 +50,19 @@ body {
 
   &_large {
     font-size: 32px;
+  }
+}
+
+.d-flex {
+  display: flex;
+  align-items: center;
+
+  &_space {
+    justify-content: space-between;
+  }
+
+  &_center {
+    justify-content: center;
   }
 }
 
@@ -83,3 +126,26 @@ body {
   padding: 10px;
 }
 
+@keyframes slideDown {
+  from {
+    transform: translate(-100%);
+  }
+
+  to {
+    transform: translate(0%);
+  }
+}
+
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
+.no-wrap {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

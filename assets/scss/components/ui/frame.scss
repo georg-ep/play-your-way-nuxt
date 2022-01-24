@@ -3,7 +3,7 @@
 }
 
 .sidebar {
-  width: 200px !important;  
+  min-width: 200px !important;  
   background: black;
   height: 100vh;
   color: white;
@@ -11,6 +11,12 @@
   display: inline-flex;
   flex-direction: column;
   border-right: 2px solid rgba($color: white, $alpha: 0.2);
+  position: relative;
+
+  @media (max-width: 1000px) {
+    position: absolute;
+    z-index: 1000;
+  }
 
   &_item {
     margin: 15px 0;
@@ -42,9 +48,22 @@
   color: white;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding: 10px 0;
   border-bottom: 2px solid rgba($color: white, $alpha: 0.2);
+
+  .burger-menu {
+    margin-left: 12px;
+    height: 36px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .actions {
+    display: flex;
+  }
 }
 
 .button {
@@ -56,4 +75,38 @@
 .content-body {
   width: 100%;
   padding: 35px 30px;
+
+  @media (max-width: 500px) {
+    padding: 35px 0;
+    width: calc(100% - 16px);
+    margin: 0 auto;
+  }
+}
+
+.hide {
+  animation: slideOut 1s;
+  animation-fill-mode: forwards;
+}
+
+.show {
+  animation: slideIn 1s;
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOut {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+    display: none;
+  }
 }

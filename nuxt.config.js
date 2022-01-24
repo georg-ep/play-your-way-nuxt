@@ -80,6 +80,7 @@ export default {
     // https://go.nuxtjs.dev/axios
     "@nuxtjs/axios",
     "@nuxtjs/auth",
+    "nuxt-breakpoints",
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios

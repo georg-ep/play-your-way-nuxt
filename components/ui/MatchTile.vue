@@ -3,22 +3,22 @@
     <div class="match-tile">
       <div class="match-tile_content">
         <div class="date">
-          <div>{{ match.date.split("T")[1].replace("Z", "") }}</div>
-          <div>{{ match.date.split("T")[0] }}</div>
+          <div>{{ matchTime }}</div>
+          <div>{{ matchDate }}</div>
         </div>
         <div class="match">
           <div class="teams">
             <div class="team" :class="teamStatus(match.homeTeam.name)">
               {{ match.homeTeam.name }}
               <div v-if="isFinished" class="score">
-                {{ match.score.home_goals }}
+                {{ match.home_goals }}
               </div>
             </div>
             <div class="mh-16">vs</div>
             <div class="team" :class="teamStatus(match.awayTeam.name)">
               {{ match.awayTeam.name }}
               <div v-if="isFinished" class="score">
-                {{ match.score.away_goals }}
+                {{ match.away_goals }}
               </div>
             </div>
           </div>
@@ -46,6 +46,20 @@ export default {
     },
   },
   computed: {
+    matchTime() {
+      const date = new Date(this.match.date);
+      let minutes = date.getMinutes();
+      const hours = date.getHours();
+      if (date.getMinutes() < 10) {
+        minutes = "0" + minutes;
+      }
+      return hours + ":" + minutes;
+    },
+    matchDate() {
+      const date = new Date(this.match.date);
+
+      return date.toLocaleDateString();
+    },
     teamStatus() {
       return (team) => {
         let style = "";
@@ -63,7 +77,7 @@ export default {
       return this.match.status === "FINISHED";
     },
     winner() {
-      const hasWinner = this.match.score.winner;
+      const hasWinner = this.match.winner;
       const hasFinished = this.match.status === "FINISHED";
       return hasWinner ? hasWinner.name : hasFinished ? "Draw" : "";
     },

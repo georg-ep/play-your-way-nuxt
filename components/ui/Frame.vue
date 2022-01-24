@@ -1,20 +1,27 @@
 <template>
   <div>
     <div class="nav-bar">
-      <Button
-        class="button_trailing"
-        :text="trailingButtonText"
-        @click="handleClick"
+      <img
+        class="burger-menu"
+        src="~/assets/icons/burger-menu-white.svg"
+        @click="modal = !modal"
       />
-      <Button
-        v-if="userAuth"
-        class="button_trailing"
-        :text="'Logout'"
-        @click="logout"
-      />
+      <div class="actions">
+        <Button
+          class="button_trailing"
+          :text="trailingButtonText"
+          @click="handleClick"
+        />
+        <Button
+          v-if="userAuth"
+          class="button_trailing"
+          :text="'Logout'"
+          @click="logout"
+        />
+      </div>
     </div>
     <div class="frame">
-      <div class="sidebar">
+      <div :class="modal ? 'show' : 'hide'" class="sidebar">
         <div
           v-for="(item, index) in items"
           :key="`item_${index}`"
@@ -42,6 +49,7 @@ export default {
   data() {
     return {
       items: ["🏠 Home", "💰 My bets", "⚽️ Matches", "👥 Friends"],
+      modal: false,
     };
   },
   computed: {
@@ -72,6 +80,7 @@ export default {
         2: "/matches",
         3: "/friends",
       };
+      this.modal = false;
       this.$router.push(config[index]);
     },
     async logout() {

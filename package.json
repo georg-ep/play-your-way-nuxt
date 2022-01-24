@@ -6,6 +6,7 @@
     "devw": "cross-env DEV=1 nuxt",
     "dev": "DEV=1 nuxt",
     "build": "nuxt build",
+    "heroku-postbuild": "npm run build",
     "start": "nuxt start",
     "generate": "nuxt generate",
     "lint:js": "eslint --ext .js,.vue --ignore-path .gitignore .",
@@ -35,6 +36,7 @@
     "core-js": "^3.6.5",
     "node-sass": "^6.0.1",
     "nuxt": "^2.14.6",
+    "nuxt-breakpoints": "^1.1.9",
     "v-click-outside": "^3.1.2",
     "vuex": "^3.6.2"
   },
