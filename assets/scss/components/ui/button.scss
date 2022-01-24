@@ -1,16 +1,31 @@
 button {
-  background-color: black;
   border: none;
   outline: none;
   border-radius: 0;
-  font-size: 16px;
-  padding: 10px 20px;
-  color: white;
+  font-size: 14px;
+  padding: 7px 18px;
   transition: 0.3s;
+  background: #3E42F3;
+  color: white;
+  font-weight: 700;
+  border-radius: 3px;
+  box-shadow: 0px 0px 26px -3px rgba(0,0,0,0.2);
+
+  &:hover {
+    filter: brightness(1.2);
+  }
+
+  &:active {
+    filter: brightness(0.8);
+  }
 }
 
 button:hover { 
   cursor: pointer;
+}
+
+.full-width {
+  width: 100%;
 }
 
 @keyframes animatedgradient {

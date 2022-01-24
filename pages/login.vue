@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="content">
     <div class="content_title">Login</div>
     <Textfield
       v-model="email"
@@ -27,7 +27,13 @@
         <nuxt-link to="/forgot-password"><span>Click here</span></nuxt-link>
       </div>
     </div>
-    <Button class="button" :text="'Login'" :type="'hidden'" @click="login" />
+    <Button
+      class="button"
+      :text="'Login'"
+      :type="'hidden'"
+      :full-width="true"
+      @click="login"
+    />
   </div>
 </template>
 

@@ -1,11 +1,11 @@
 .textfield {
-  padding: 5px 0px;
-  background-color: #000000;
-  border-radius: 5px;
-  border: 2px solid #3e4346;
+  padding: 12px 5px;
+  background: transparent;
+  border: 1px solid rgba(201,207,212,1);
+  border-radius: 8px;
   outline: none;
   padding-left: 10px;
-  color: white;
+  color: black;
   transition: 0.3s;
 
   &_error {
@@ -22,8 +22,9 @@
 }
 
 .label {
-  color: white;
+  color: black;
   font-size: 12px;
+  font-weight: bold;
   text-align: left;
   margin-bottom: 4px;
 }

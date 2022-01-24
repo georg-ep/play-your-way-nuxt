@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="content">
     <div class="content_title">Register</div>
     <Textfield v-model="email" class="tf" :label="'Email'" />
     <Textfield v-model="password" class="tf" :label="'Password'" />

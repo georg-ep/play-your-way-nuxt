@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="wrapper">
-      <div class="gradient-border">
-        <div class="content">
-          <button @click="$emit('click')">{{ text }}</button>
-        </div>
+      <div class="content">
+        <button :class="{ 'full-width': fullWidth }" @click="$emit('click')">
+          {{ text }}
+        </button>
       </div>
     </div>
   </div>
@@ -18,6 +18,11 @@ export default {
       type: String,
       reqired: true,
       default: "",
+    },
+    fullWidth: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
   },
 };

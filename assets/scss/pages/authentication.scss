@@ -17,23 +17,36 @@ body {
 }
 
 .content {
-  background-color: #1D1F20;
-  width: 100%;
-  height: 100%;
+  border-radius: 8px;
   text-align: center;
-  display: inline-block;
+  background: rgba($color: white, $alpha: 0.8);
+  padding: 50px 70px;
+
+  @media (max-width: 440px) {
+    width: calc(100% - 12px);
+    padding: 50px 0;
+    margin: 0 auto;
+  }
 
   &_title {
-    padding-top: 10px;
-    color: white;
+    margin-bottom: 24px;
+    color: black;
     font-size: 24px;
-    padding: 24px 0;
+    font-weight: bold;
+    text-align: left;
+
+    @media (max-width: 440px) {
+      text-align: center;
+    }
   }
 }
 
 .button {
-  padding-top: 12px;
-  padding-bottom: 24px;
+  padding-top: 24px;
+
+  @media (max-width: 440px) {
+    padding: 0 70px
+  }
 }
 
 .tf {
@@ -45,7 +58,7 @@ body {
 }
 
 .no-account {
-  color: white;
+  color: black;
   font-size: 12px;
   margin-bottom: 12px;
 

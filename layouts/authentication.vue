@@ -1,11 +1,7 @@
 <template>
   <div>
     <div class="wrapper">
-      <div class="gradient-border">
-        <div class="content">
-          <Nuxt />
-        </div>
-      </div>
+      <Nuxt />
     </div>
     <Snackbar v-if="showSnackbar" :data="snackbarData" />
   </div>
