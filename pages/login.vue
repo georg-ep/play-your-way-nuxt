@@ -73,7 +73,7 @@ export default {
       return !error;
     },
     async login() {
-      if (!this.validate()) return;
+      // if (!this.validate()) return;
       try {
         const data = {
           email: this.email,
