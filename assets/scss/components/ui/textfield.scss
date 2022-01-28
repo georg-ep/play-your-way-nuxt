@@ -9,7 +9,7 @@
   transition: 0.3s;
 
   &_error {
-    border: 2px solid #ef4e7b;
+    border: 1px solid #ef4e7b;
   }
 }
 
@@ -34,9 +34,11 @@
   display: inline-block;
 
   .error-text {
+    transition: 0.3s ease-in-out;
     color: #ef4e7b;
     margin-top: 4px;
     font-size: 12px;
+    position: absolute;
   }
 }
 

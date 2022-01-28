@@ -85,7 +85,7 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseUrl: process.env.API_URL,
+    baseUrl: process.env.API_URL || "https://calm-shore-12479.herokuapp.com/",
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

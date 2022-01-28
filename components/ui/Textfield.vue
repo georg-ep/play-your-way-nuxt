@@ -5,12 +5,11 @@
       <div class="textfield-wrapper">
         <div v-if="isCurrency">£</div>
         <input
-          :value="text"
           :type="type"
           :placeholder="placeholder"
           class="textfield"
           :class="[size, isError ? 'textfield_error' : '']"
-          @input="$emit('input', $event.target.value)"
+          @input="$emit('update:name', $event.target.value)"
           @focus="$emit('focused')"
           @blur="$emit('blurred')"
         />
@@ -28,11 +27,6 @@ export default {
       type: String,
       required: false,
       default: "",
-    },
-    isError: {
-      type: Boolean,
-      required: false,
-      default: false,
     },
     errorText: {
       type: String,
@@ -62,6 +56,11 @@ export default {
     size: {
       type: String,
       default: "medium",
+    },
+  },
+  computed: {
+    isError() {
+      return this.errorText;
     },
   },
 };

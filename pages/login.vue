@@ -2,19 +2,20 @@
   <div class="content">
     <div class="content_title">Login</div>
     <Textfield
-      v-model="email"
+      :name.sync="email"
       :placeholder="'Email'"
-      :is-error="errors.email"
-      :error-text="errors.messages.email"
+      :error-text="errors.email"
       class="tf"
+      :class="{ tf_error: errors.email }"
       :label="'Email'"
     />
     <Textfield
-      v-model="password"
-      :is-error="errors.password"
-      :error-text="errors.messages.password"
+      :name.sync="password"
+      :error-text="errors.password"
       :placeholder="'Password'"
+      :type="'password'"
       class="tf"
+      :class="{ tf_error: errors.email }"
       :label="'Password'"
     />
     <div class="mid-section">
@@ -50,12 +51,8 @@ export default {
   data() {
     return {
       errors: {
-        email: false,
-        password: false,
-        messages: {
-          email: "",
-          password: "",
-        },
+        email: "",
+        password: "",
       },
       email: "",
       password: "",
@@ -64,21 +61,16 @@ export default {
   },
   methods: {
     validate() {
-      this.errors.email = false;
-      this.errors.messages.email = "";
-      if (!this.email) {
-        this.errors.email = true;
-        this.errors.messages.email = "Email field is required";
-      }
-
-      this.errors.password = false;
-      this.errors.messages.password = "";
-      if (!this.password) {
-        this.errors.password = true;
-        this.errors.messages.password = "Password field is required";
-      }
-
-      return this.email && this.password;
+      let error = false;
+      ["email", "password"].forEach((item) => {
+        this.$set(this.errors, item, "");
+        console.log(this.errors);
+        if (!this.errors[item]) {
+          this.$set(this.errors, item, "Required");
+          error = true;
+        }
+      });
+      return !error;
     },
     async login() {
       if (!this.validate()) return;

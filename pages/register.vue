@@ -1,14 +1,36 @@
 <template>
   <div class="content">
     <div class="content_title">Register</div>
-    <Textfield v-model="email" class="tf" :label="'Email'" />
-    <Textfield v-model="password" class="tf" :label="'Password'" />
-    <Textfield v-model="repeatPassword" class="tf" :label="'Repeat Password'" />
+    <Textfield
+      v-model="email"
+      class="tf"
+      :placeholder="'Email'"
+      :label="'Email'"
+    />
+    <Textfield
+      v-model="password"
+      :type="'password'"
+      :placeholder="'Password'"
+      class="tf"
+      :label="'Password'"
+    />
+    <Textfield
+      v-model="repeatPassword"
+      class="tf"
+      :type="'password'"
+      :placeholder="'Repeat password'"
+      :label="'Repeat Password'"
+    />
     <div class="no-account">
       Already have an account?
       <nuxt-link to="/login"><span>Login here</span></nuxt-link>
     </div>
-    <Button class="button" :text="'Register'" @click="register" />
+    <Button
+      :full-width="true"
+      class="button"
+      :text="'Register'"
+      @click="register"
+    />
   </div>
 </template>
 

@@ -10,18 +10,16 @@ button {
   font-weight: 700;
   border-radius: 3px;
   box-shadow: 0px 0px 26px -3px rgba(0,0,0,0.2);
+  letter-spacing: 1px;
 
   &:hover {
     filter: brightness(1.2);
+    cursor: pointer;
   }
 
   &:active {
     filter: brightness(0.8);
   }
-}
-
-button:hover { 
-  cursor: pointer;
 }
 
 .full-width {

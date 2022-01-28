@@ -1,8 +1,18 @@
 <template>
   <div class="content">
     <div class="content_title">Forgotten Password</div>
-    <Textfield v-model="email" class="tf" :label="'Email'" />
-    <Button class="button" :text="'Recover Password'" @click="sendEmail" />
+    <Textfield
+      v-model="email"
+      :placeholder="'Email'"
+      class="tf"
+      :label="'Email'"
+    />
+    <Button
+      :full-width="true"
+      class="button"
+      :text="'Recover Password'"
+      @click="sendEmail"
+    />
   </div>
 </template>
 
