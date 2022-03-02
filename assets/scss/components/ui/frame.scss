@@ -3,10 +3,7 @@
 }
 
 .sidebar {
-  min-width: 200px !important;  
-  background: black;
   height: 100vh;
-  color: white;
   padding: 20px;
   display: inline-flex;
   flex-direction: column;
@@ -16,45 +13,72 @@
   @media (max-width: 1000px) {
     position: absolute;
     z-index: 1000;
+    background: white;
   }
 
   &_item {
     margin: 15px 0;
     font-size: 24px;
     transition: 0.3s ease-in-out;
-    padding-left: 10px;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding: 15px;
+    text-align: center;
+    background: transparent;
+    position: relative;
+    
+    .heading {
+      transition: 0.3s ease-in-out;
+      font-size: 10px;
+      color: black;
+      background: rgba($color: white, $alpha: 0.3);
+      padding: 4px 8px;
+      border-radius: 8px; 
+      margin-bottom: 8px;
+      &:hover {
+        background: rgba(158,236,255,1);
+      }
+    }
     
     &:hover {
       cursor: pointer;
       color: rgb(236, 169, 169);
-      background: rgba($color: white, $alpha: 0.1);
-      outline: thin solid rgba($color: white, $alpha: 0.2);
+      animation: 1s slideUp;
+      color: #07b39b;
     }
   }
 }
 
 .selected-item {
   color: #07b39b;
-  background: rgba($color: white, $alpha: 0.1);
-  outline: thin solid rgba($color: white, $alpha: 0.2);
+
+  .heading {
+    font-size: 10px;
+    color: black;
+    padding: 4px 8px;
+    background: rgba(158,236,255,1);
+    border-radius: 8px; 
+    margin-bottom: 8px;
+  }
+  // outline: thin solid rgba($color: white, $alpha: 0.2);
 }
 
 .nav-bar {
-  background-color: black;
   height: 50px;
   width: 100% !important;
+  padding: 10px 0;
   color: white;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 0;
   border-bottom: 2px solid rgba($color: white, $alpha: 0.2);
 
   .burger-menu {
     margin-left: 12px;
     height: 36px;
+    display: none;
+
+    @media (max-width: 1000px) {
+      display: block;
+    }
 
     &:hover {
       cursor: pointer;
@@ -63,6 +87,17 @@
 
   .actions {
     display: flex;
+
+    .avatar {
+      clip-path: circle();
+      width: 40px;
+      height: 40px;
+      margin-right: 32px;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
   }
 }
 
@@ -84,8 +119,10 @@
 }
 
 .hide {
-  animation: slideOut 1s;
-  animation-fill-mode: forwards;
+  @media (max-width: 1000px) {
+    animation: slideOut 1s;
+    animation-fill-mode: forwards;
+  }
 }
 
 .show {
@@ -108,5 +145,21 @@
   100% {
     transform: translateX(-100%);
     display: none;
+  }
+}
+
+.noti {
+  &_wrapper {
+    position: absolute;
+    right: 7px;
+    top: 8px;
+  }
+  &_content {
+    background: rgba($color: red, $alpha: 0.8);
+    color: white;
+    padding: 2px 5px;
+    border-radius: 20px;
+    line-height: 12px;
+    clip-path: circle();
   }
 }

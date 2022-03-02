@@ -2,19 +2,35 @@
   <div>
     <div :class="size" class="container">
       <div v-if="label" class="label">{{ label }}</div>
-      <div class="textfield-wrapper">
+      <div
+        class="textfield-wrapper"
+        :class="isError ? 'textfield-wrapper_error' : ''"
+      >
         <div v-if="isCurrency">£</div>
         <input
           :type="type"
           :placeholder="placeholder"
-          class="textfield"
-          :class="[size, isError ? 'textfield_error' : '']"
+          :class="[
+            'textfield',
+            filled ? 'textfield_filled' : 'textfield_default',
+            size,
+          ]"
+          :value="text"
           @input="$emit('update:name', $event.target.value)"
           @focus="$emit('focused')"
           @blur="$emit('blurred')"
+          @keyup.enter="$emit('keyup-enter')"
+          @keyup="$emit('keyup')"
         />
+        <div v-if="trailingIcon" class="trailing-icon">
+          <img :src="icon" />
+        </div>
       </div>
-      <div v-if="errorText" class="error-text">{{ errorText }}</div>
+      <div class="error-text">
+        <div :class="errorText ? 'show' : 'hide'">
+          {{ errorText }}
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -28,7 +44,17 @@ export default {
       required: false,
       default: "",
     },
+    filled: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
     errorText: {
+      type: String,
+      required: false,
+      default: "",
+    },
+    trailingIcon: {
       type: String,
       required: false,
       default: "",
@@ -59,6 +85,12 @@ export default {
     },
   },
   computed: {
+    icon() {
+      const config = {
+        search: require("~/assets/icons/search.svg"),
+      };
+      return config[this.trailingIcon];
+    },
     isError() {
       return this.errorText;
     },

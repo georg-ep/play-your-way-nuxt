@@ -19,7 +19,7 @@ body {
 .content {
   border-radius: 8px;
   text-align: center;
-  background: rgba($color: white, $alpha: 0.8);
+  background: rgba($color: white, $alpha: 1.0);
   padding: 50px 70px;
 
   @media (max-width: 440px) {
@@ -42,29 +42,25 @@ body {
 }
 
 .button {
-  padding-top: 24px;
-
   @media (max-width: 440px) {
     padding: 24px 70px 0 70px;
   }
 }
 
 .tf {
-  padding-bottom: 24px;
   transition: 0.3s ease-in-out;
-
-  &_error {
-    padding-bottom: 38px;
-  }
 }
 
 .no-account {
   color: black;
   font-size: 12px;
-  margin-bottom: 12px;
+  
+  &:not(:last-child) {
+    margin-bottom: 12px;
+  }
 
   span {
-    color: #07b39b;
+    color: #3E42F3;
     font-weight: 700;
 
     &:hover {

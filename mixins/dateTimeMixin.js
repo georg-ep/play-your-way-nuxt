@@ -1,4 +1,17 @@
 export default {
+  computed: {
+    chooseSuffix() {
+      return (date) => {
+        const unique = date[0] === "1" && date.length > 1;
+        const config = {
+          1: unique ? "th" : "st",
+          2: unique ? "th" : "nd",
+          3: unique ? "th" : "rd",
+        };
+        return config[date[date.length - 1]] ?? "th";
+      };
+    },
+  },
   methods: {
     timeFormatter(date) {
       const fdate = new Date(date);
@@ -24,8 +37,8 @@ export default {
         "Nov",
         "Dec",
       ];
-      const suffix = "th";
       const fdate = new Date(date);
+      const suffix = this.chooseSuffix(String(fdate.getDate()));
       return fdate.getDate() + suffix + " " + months[fdate.getMonth()];
     },
   },

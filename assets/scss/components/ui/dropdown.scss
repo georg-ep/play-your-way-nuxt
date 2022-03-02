@@ -1,0 +1,32 @@
+.dropdown {
+  background-color: white;
+  padding: 12px;
+  position: absolute;
+  border-radius: 4px;
+  border: 1px solid black;
+
+  .item {
+    color: black;
+    padding: 6px 12px;
+    border-radius: 4px;
+
+    &:not(:last-child) {
+      margin-bottom: 6px;
+    }
+
+    &:hover {
+      transition: 0.2s ease-in-out;
+      background: rgba($color: black, $alpha: 0.1);
+      cursor: pointer;
+    }
+  }
+}
+
+.hide-menu {
+  visibility: visible;
+}
+
+.show-menu {
+  visibility: hidden;
+}
+

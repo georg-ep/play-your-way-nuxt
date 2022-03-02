@@ -16,7 +16,13 @@ export const actions = {
       await this.$axios.$post(`/api/bets/add-player/`, data);
     }
   },
-  async mine(context) {
+  async info(context, id) {
+    return await this.$axios.$get(`/api/bets/detail/${id}/`);
+  },
+  async received(context) {
+    return await this.$axios.$get(`/api/bets/received/`);
+  },
+  async confirmed(context) {
     return await this.$axios.$get(`/api/bets/mine/`);
   },
   async accept(context, betId) {

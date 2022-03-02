@@ -1,0 +1,13 @@
+.credits {
+  clip-path: circle();
+  background: #0004ff;
+  padding: 30px;
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}

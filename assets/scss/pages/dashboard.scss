@@ -5,4 +5,34 @@
 
 .dashboard-container {
   color: white;
+  display: flex;
+
+  @media (max-width: 640px) {
+    display: block;
+    width: calc(100%);
+  }
+
+  .sub-container {
+    flex: 1;
+  }
+
+  .match-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 16px;
+    column-gap: 16px;
+    margin-left: 24px;
+
+    @media (max-width: 1250px) {
+      grid-template-columns: repeat(1, 1fr);
+    }
+
+    @media (max-width: 640px) {
+      margin: 0;
+      margin-top: 24px;
+      row-gap: 8px;
+      column-gap: 8px;
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
 }

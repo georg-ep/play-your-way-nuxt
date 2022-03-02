@@ -16,6 +16,7 @@
       @input="setBetAmount"
     />
     <Searchfield
+      v-if="!selectedUser"
       class="mb-24"
       :label="`Enter a player to bet against`"
       :placeholder="`Start typing to find a user`"
@@ -23,9 +24,15 @@
       :selected="selectedUser"
       :is-error="errors.tf2"
       :error-text="errors.messages.tf2"
-      :type="`users`"
+      :type="`user`"
       @on-input="searchUsers"
       @select="selectUserToBet"
+    />
+    <SelectedUser
+      v-else
+      :user="selectedUser"
+      class="mb-24"
+      @reset-selected="selectedUser = null"
     />
     <BetStrip
       class="mb-24"
@@ -47,7 +54,7 @@
     <div class="player-list">
       <PlayerTile
         v-for="(player, index) in playersToScore"
-        :key="`player_${index}`"
+        :key="`player_${index}be`"
         class="item"
         :player="player"
         @remove="removePlayer"
@@ -68,11 +75,13 @@ import Searchfield from "~/components/ui/SearchField.vue";
 import Textfield from "~/components/ui/Textfield.vue";
 import PlayerTile from "~/components/ui/PlayerTile.vue";
 import Button from "~/components/ui/Button.vue";
+import SelectedUser from "~/components/ui/SelectedUser.vue";
 export default {
   name: "BetModal",
   components: {
     Modal,
     BetStrip,
+    SelectedUser,
     Button,
     Textfield,
     PlayerTile,
@@ -206,7 +215,7 @@ export default {
             user1: this.$auth.user.id,
             user2: this.selectedUser.id,
             amount: this.betAmount,
-            match: this.$route.params.id,
+            match: this.fixture.match_id,
             winner,
             is_draw: isDraw,
           };

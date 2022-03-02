@@ -1,7 +1,7 @@
 <template>
-  <div class="wrapper">
+  <div keep-alive class="wrapper">
     <div :class="[hide ? 'hidden' : 'show', data.type]" class="snackbar">
-      <img :src="prefixIcon" />
+      <img class="prefix-icon" :src="prefixIcon" />
       {{ data.text }}
     </div>
   </div>
@@ -26,6 +26,7 @@ export default {
       const conifg = {
         success: require("~/assets/icons/check-cyan.svg"),
         error: require("~/assets/icons/close-circle-black.svg"),
+        "bet-received": require("~/assets/icons/bet-received.svg"),
       };
       const imgRef = conifg[this.data.type];
       return imgRef || "";

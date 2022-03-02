@@ -1,32 +1,27 @@
 .bet-tile {
-  color: white;
+  color: black;
   display: flex;
   align-items: center;
-  justify-content: center;
-  flex-direction: column;
+  background: white;
+  border-radius: 8px;
+  padding: 8px 4px;
 
-  &_title {
-    font-size: 20px;
-  }
   &.buttons {
     display: flex;
+    align-items: center;
   }
   &_date {
     font-size: 17px;
-    margin-bottom: 12px;
   }
   &_from-user {
     font-size: 16px;
-    margin-bottom: 12px;
   }
   &_amount {
     color: #1098ad;
     font-weight: bold;
     font-size: 28px;
   }
-  &_game {
-    margin-top: 12px;
-  }
+
 }
 
 button:last-child {
@@ -60,10 +55,6 @@ button:last-child {
         cursor: pointer;
       }
     }
-}
-
-.divider {
-  margin-top: 12px;
 }
 
 .hidden {

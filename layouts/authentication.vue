@@ -2,7 +2,6 @@
   <div>
     <div class="wrapper">
       <div>
-        <Countdown class="mb-24" />
         <Nuxt />
       </div>
     </div>
@@ -12,12 +11,10 @@
 
 <script>
 import Snackbar from "~/components/ui/snackbar/Snackbar.vue";
-import Countdown from "~/components/Countdown.vue";
 export default {
   name: "AuthenticationLayout",
   components: {
     Snackbar,
-    Countdown,
   },
   computed: {
     showSnackbar() {

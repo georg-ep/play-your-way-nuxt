@@ -1,15 +1,21 @@
+.search-field {
+  position: relative;
+}
+
 .search-results {
-  background: black;
-  width: 300px;
+  background: white;
+  color: black !important;
+  width: 250px;
   z-index: 500;
   color: white;
-  padding: 10px;
+  width: 250px;
   position: absolute;
-  border: 2px solid #3e4346;
-
+  border-radius: 0 0 4px 4px;
+  outline: 2px solid white;
 
   &_item {
     animation: fadeIn 0.2s;
+    padding: 10px;
 
     &:hover{
       color: rgb(236, 169, 169);

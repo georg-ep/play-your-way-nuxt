@@ -1,62 +1,58 @@
 <template>
-  <tr
-    v-if="!loading"
-    :class="isCollapsed ? 'slide-down' : 'slide-up'"
-    class="row"
-    @click="toggleCollapsedRow"
-  >
-    <td>
-      <img
+  <tr :class="isCollapsed ? 'slide-down' : 'slide-up'" class="row">
+    <!-- <img
         class="chevron"
         :class="{ rotated: !isCollapsed }"
         src="~/assets/icons/chevron-down.svg"
-      />
-    </td>
+      /> -->
     <td class="no-wrap">
-      {{ matchDate(match.date) }}
-
-      <div :class="isCollapsed ? 'hide' : 'show'" class="extra">Status</div>
-    </td>
-    <td :colspan="2">
-      <div class="no-wrap d-flex d-flex_center">
-        <img class="team-img" :src="match.homeTeam.crest" />
-        <div class="team-name">
-          {{ match.homeTeam.name }}
-        </div>
-        <div class="mh-16">vs</div>
-        <div class="team-name">
-          {{ match.awayTeam.name }}
-        </div>
-        <img class="team-img" :src="match.awayTeam.crest" />
+      <div class="ph-0">
+        <Button v-if="canBet" :text="'Quick Bet'" @click="quickBet" />
       </div>
-      <div :class="isCollapsed ? 'hide' : 'show'" class="extra">Scorers</div>
+      <div class="date ph-0" colspan="3">
+        {{ matchDate(match.date) }}
+      </div>
+    </td>
+    <td colspan="2">
+      <table class="no-wrap table-view">
+        <th>
+          <div class="team-name">
+            {{ match.homeTeam.name }}
+          </div>
+          <img class="team-img" :src="match.homeTeam.crest" />
+        </th>
+        <th>vs</th>
+        <th>
+          <img class="team-img" :src="match.awayTeam.crest" />
+          <div class="team-name">
+            {{ match.awayTeam.name }}
+          </div>
+        </th>
+      </table>
     </td>
     <td>
       <div>{{ match.home_goals }} - {{ match.away_goals }}</div>
     </td>
     <td>
-      <div class="no-wrap">{{ matchStatus(match) }}</div>
+      <div class="bubble">{{ matchStatus(match) }}</div>
     </td>
-  </tr>
-  <tr v-else>
-    <td v-for="i in 4" :key="i"><div class="loading" /></td>
   </tr>
 </template>
 
 <script>
 import dateTimeMixin from "~/mixins/dateTimeMixin.js";
+import Button from "~/components/ui/Button.vue";
+
 export default {
   name: "MatchTableRow",
+  components: {
+    Button,
+  },
   mixins: [dateTimeMixin],
-
   props: {
     match: {
       type: Object,
       required: true,
-    },
-    loading: {
-      type: Boolean,
-      default: false,
     },
   },
   data() {
@@ -68,7 +64,7 @@ export default {
     matchStatus() {
       return (match) => {
         const isPostponed = match.status === "POSTPONED";
-        return isPostponed ? "PP" : match.winner ? match.winner : "TBD";
+        return isPostponed ? "PP" : match.winner ?? "TBD";
       };
     },
     matchDate() {
@@ -86,8 +82,14 @@ export default {
         return this.dateFormatter(date);
       };
     },
+    canBet() {
+      return this.match.status === "SCHEDULED";
+    },
   },
   methods: {
+    quickBet() {
+      this.$emit("quick-bet", this.match);
+    },
     toggleCollapsedRow() {
       this.isCollapsed = !this.isCollapsed;
     },

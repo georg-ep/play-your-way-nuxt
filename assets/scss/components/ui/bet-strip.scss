@@ -2,8 +2,8 @@
   &_choices {    
     display: flex;
     align-items: center;
-    border: 2px solid #3e4346;
-    color: white;
+    border: 2px solid #6baad1;
+    color: black;
     font-size: 12px;
   }
 }
@@ -20,14 +20,14 @@
 
   &:hover {
     cursor: pointer;
-    background: #a166ab;
+    background: #cfb6d3;
   }
 }
 
 .selected {
-  background: #a166ab;
+  background: #cfb6d3;
 }
 
 .bet-block:not(:last-child) {
-  border-right: 2px solid #3e4346;
+  border-right: 2px solid #6baad1;
 } 

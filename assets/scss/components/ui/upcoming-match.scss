@@ -1,0 +1,85 @@
+.match-tile {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  color: black;
+
+  @media (max-width: 640px) {
+    padding: 12px;
+  }
+
+  .league {
+    color: #361C54;
+    font-weight: bold;
+  }
+
+  .d-flex {
+    text-align: right;
+    
+    @media (max-width: 640px) {
+      text-align: center;
+      margin-bottom: 12px;
+      justify-content: center !important;
+    }
+
+    .time {
+      font-size: 24px;
+    }
+    .date {
+      margin-top: 8px;
+      font-size: 16px;
+      border-radius: 4px;
+      background-color: rgba($color: black, $alpha: 0.05);
+      padding: 4px 8px;
+    }
+  }
+
+  .home-team {
+    color: black;
+    font-size: 30px;
+
+    @media (max-width: 640px) {
+      font-size: 18px;
+    } 
+  }
+
+  .away-team {
+    font-size: 24px;
+    color: #C9CED6;
+
+    @media (max-width: 640px) {
+      font-size: 16px;
+    } 
+  }
+
+  .actions {
+    @media (max-width: 640px) {
+      flex-direction: column;
+    }
+    .action {
+      padding: 4px 8px;
+      border-radius: 8px;
+      font-size: 20px;
+      text-align: center;
+
+      &:not(:last-child) {
+        @media (max-width: 640px) {
+          margin-bottom: 12px;
+        }
+      }
+
+      &_blue {
+        background-color: #f0f0ff;
+        color: #3E43F5;
+      }
+      &_yellow {
+        background-color: #FEF5E2;
+        color: #F8CC7B;
+      }
+      &_red {
+        background-color: #FCF2F4;
+        color: #DC4F62;
+      }
+    }
+  }
+}

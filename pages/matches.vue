@@ -1,16 +1,15 @@
 <template>
-  <div v-if="matches && requests" class="content">
+  <div v-if="mData" class="content">
+    <BetModal
+      v-if="fixture"
+      :users="users"
+      :fixture="fixture"
+      :show-modal="modal"
+      @hide-modal="modal = false"
+      @search-users="searchUsers"
+    />
     <div class="page-headline">Matches</div>
     <div class="matches">
-      <div class="headline d-flex mb-24">
-        <Button :text="'Previous'" @click="prev" />
-        <div class="mh-16">
-          Upcoming matches for gameweek {{ currentGameweek }}
-        </div>
-
-        <Button :text="'Next'" @click="next" />
-        <Button class="mh-16" :text="'Switch view'" @click="toggleTableView" />
-      </div>
       <div v-if="isTableView" class="list">
         <MatchTile
           v-for="match in matches"
@@ -19,77 +18,129 @@
           :match="match"
         />
       </div>
-      <table v-else class="table-view">
-        <tr>
-          <th></th>
-          <th>Date</th>
-          <th :colspan="2">Match</th>
-          <th>Score</th>
-          <th>Winner</th>
-        </tr>
-        <MatchTableRow
-          v-for="(match, idx) in matches"
-          :key="`match_${idx}`"
-          :match="match"
-          :loading="loading"
-        />
-      </table>
+      <Table v-if="mData.rows" :data="mData" @bet="quickBet" />
     </div>
   </div>
 </template>
 
 <script type="module">
 import MatchTile from "~/components/ui/MatchTile.vue";
-import Button from "~/components/ui/Button.vue";
+import Table from "~/components/ui/Table.vue";
 import dateTimeMixin from "~/mixins/dateTimeMixin.js";
-import MatchTableRow from "~/components/ui/MatchTableRow.vue";
+import BetModal from "~/components/ui/modals/BetModal.vue";
+import { objectToQuery } from "~/utils/routing.js";
 export default {
   components: {
     MatchTile,
-    Button,
-    MatchTableRow,
+    Table,
+    BetModal,
   },
   mixins: [dateTimeMixin],
   async asyncData({ store }) {
-    const gameweek = (await store.dispatch("matches/fetchGameweek")).gameweek;
-    const requests = (await store.dispatch("bets/pending")).results;
-    const matches = (await store.dispatch("matches/matches", gameweek)).results;
-    return { requests, matches, gameweek };
+    const matches = (await store.dispatch("matches/upcoming")).results;
+    const mData = {
+      headers: [
+        {
+          title: "Match",
+        },
+        {},
+      ],
+      rows: [],
+      data: "",
+    };
+    let current = "";
+    matches.forEach((match) => {
+      if (current !== match.date) {
+        current = match.date;
+        mData.rows.push({
+          col0: { header: match.date },
+          type: "date",
+        });
+      }
+      mData.rows.push({
+        col0: { header: match.homeTeam.name + " :-: " + match.awayTeam.name },
+        data: match.match_id,
+        actions: ["bet"],
+      });
+    });
+    return { mData };
   },
   data() {
     return {
       currentGameweek: 0,
       isTableView: false,
-      loading: false,
+      filters: { search: "" },
+      users: null,
+      fixture: null,
+      timeout: false,
+      modal: false,
+      currentDate: null,
     };
   },
   computed: {
+    filtered() {
+      return this.matches;
+    },
     user() {
       return this.$auth && this.$auth.user ? this.$auth.user.email : "";
+    },
+  },
+  watch: {
+    async "filters.search"(val) {
+      const filters = objectToQuery(this.filters);
+      this.matches = (
+        await this.$store.dispatch("matches/matches", { filters })
+      ).results;
     },
   },
   mounted() {
     this.currentGameweek = this.gameweek;
   },
   methods: {
+    searchUsers(query) {
+      if (!this.timeout) {
+        this.users = null;
+        if (!query) return;
+        this.timeout = true;
+        setTimeout(async () => {
+          try {
+            this.users = (
+              await this.$store.dispatch("users/list", query)
+            ).results;
+            console.log(this.users);
+          } catch (e) {
+            console.log(e);
+          }
+          this.timeout = false;
+        }, 1000);
+      }
+    },
+    async fetchData(matchId) {
+      this.fixture = await this.$store.dispatch("matches/detail", matchId);
+    },
+    quickBet(matchId) {
+      console.log(matchId);
+      this.fetchData(matchId);
+      this.modal = true;
+    },
     toggleTableView() {
       this.isTableView = !this.isTableView;
     },
     async prev() {
-      this.loading = true;
       this.currentGameweek--;
       this.matches = (
-        await this.$store.dispatch("matches/matches", this.currentGameweek)
+        await this.$store.dispatch("matches/matches", {
+          gameweek: this.currentGameweek,
+        })
       ).results;
-      this.loading = false;
     },
     async next() {
-      this.loading = true;
       this.currentGameweek++;
       this.matches = (
-        await this.$store.dispatch("matches/matches", this.currentGameweek)
+        await this.$store.dispatch("matches/matches", {
+          gameweek: this.currentGameweek,
+        })
       ).results;
-      this.loading = false;
     },
   },
 };

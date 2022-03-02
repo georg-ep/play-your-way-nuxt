@@ -2,25 +2,32 @@
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 
   .snackbar {
     position: absolute;
     bottom: 32px;
-    width: calc(100% - 200px);
+    left: 32px;
     padding: 10px 30px;
     display: flex;
     align-items: center;
-    border-radius: 10px;
+    border-radius: 4px;
     z-index: 3000;
 
-    img {
+    .prefix-icon {
       margin-right: 12px;
+      height: 30px;
+      width: 30px;
     }
   }
 
   .success {
     background: #6fba82;
+    color: white !important;
+  }
+
+  .bet-received {
+    background: #6fafba;
     color: white !important;
   }
   
@@ -30,11 +37,13 @@
   }
 }
 .show {
-  animation: slideIn 1s;
+  animation: slideIn 0.2s;
+  animation-fill-mode: forwards;
 }
 
 .hidden {
-  animation: slideOut 1s;
+  animation: slideOut 0.2s;
+  animation-fill-mode: forwards;
 }
 
 @keyframes slideIn {
@@ -53,6 +62,6 @@
   }
 
   100% {
-    transform: translateX(300%);
+    transform: translateY(300%);
   }
 }

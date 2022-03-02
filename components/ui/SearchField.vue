@@ -1,20 +1,22 @@
 <template>
-  <div class="search-field">
-    <div>
+  <div>
+    <div class="search-field">
       <Textfield
-        class="search-field"
         :text="displayItem(selected)"
         :label="label"
         :is-error="isError"
         :placeholder="placeholder"
         :error-text="errorText"
-        @input="searchUsers"
+        :filled="filled"
+        :name.sync="query"
+        :is-search="true"
+        :trailing-icon="'search'"
         @focused="focus = true"
         @blurred="focus = false"
       />
       <div
-        v-if="query && focus"
-        :class="query && focus ? 'show-results' : 'hide-results'"
+        v-if="query"
+        :class="query ? 'show-results' : 'hide-results'"
         class="search-results"
       >
         <div v-if="items">
@@ -62,10 +64,20 @@ export default {
       required: false,
       default: false,
     },
+    condenseItems: {
+      type: Boolean,
+      required: false,
+      default: true,
+    },
     type: {
       type: String,
-      required: true,
-      default: "users",
+      required: false,
+      default: "user",
+    },
+    filled: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
     placeholder: {
       type: String,
@@ -73,7 +85,7 @@ export default {
       default: "",
     },
     selected: {
-      type: [String, Object, null],
+      type: [String, Object],
       required: false,
       default: "",
     },
@@ -96,18 +108,19 @@ export default {
     displayItem() {
       return (item) => {
         const config = {
-          users: item ? item.email : "",
-          players: item ? item.name : "",
+          user: item ? item.email : "",
+          player: item ? item.name : "",
         };
-        return config[this.type];
+        return config[this.type] ?? item.name;
       };
     },
   },
-  methods: {
-    searchUsers(value) {
-      this.query = value;
-      this.$emit("on-input", this.query);
+  watch: {
+    query(val) {
+      this.$emit("update:name", val);
     },
+  },
+  methods: {
     selectItem(item) {
       this.query = "";
       this.$emit("select", item);

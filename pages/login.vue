@@ -2,50 +2,55 @@
   <div class="content">
     <div class="content_title">Login</div>
     <Textfield
-      :name.sync="email"
+      :name.sync="fields.email"
+      :text="fields.email"
       :placeholder="'Email'"
       :error-text="errors.email"
-      class="tf"
-      :class="{ tf_error: errors.email }"
-      :label="'Email'"
+      class="tf mb-24"
+      @keyup="validate('email')"
     />
     <Textfield
-      :name.sync="password"
+      :name.sync="fields.password"
+      :text="fields.password"
       :error-text="errors.password"
       :placeholder="'Password'"
       :type="'password'"
-      class="tf"
-      :class="{ tf_error: errors.email }"
-      :label="'Password'"
+      class="tf mb-24"
+      @keyup-enter="login"
+      @keyup="validate('password')"
     />
-    <div class="mid-section">
-      <div class="no-account">
-        Dont have an account?
-        <nuxt-link to="/register"><span>Register here</span></nuxt-link>
-      </div>
-      <div class="no-account">
-        Forgot your password?
-        <nuxt-link to="/forgot-password"><span>Click here</span></nuxt-link>
-      </div>
-    </div>
     <Button
-      class="button"
+      class="button mb-24"
       :text="'Login'"
       :type="'hidden'"
       :full-width="true"
       @click="login"
     />
+    <div class="mid-section">
+      <Divider :text="'Or'" class="mb-24" />
+      <div class="no-account">
+        <nuxt-link to="/register"><span>Register here</span></nuxt-link>
+      </div>
+      <div class="no-account">
+        <nuxt-link to="/forgot-password"
+          ><span>Forgot password</span></nuxt-link
+        >
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import Textfield from "~/components/ui/Textfield.vue";
 import Button from "~/components/ui/Button.vue";
+import { formValidation } from "~/utils/validations.js";
+import Divider from "~/components/ui/Divider.vue";
 export default {
   name: "LoginPage",
   components: {
     Textfield,
     Button,
+    Divider,
   },
   layout: "authentication",
   data() {
@@ -54,34 +59,37 @@ export default {
         email: "",
         password: "",
       },
-      email: "",
-      password: "",
+      fields: {
+        email: "",
+        password: "",
+      },
       loading: false,
     };
   },
   methods: {
-    validate() {
-      let error = false;
-      ["email", "password"].forEach((item) => {
-        this.$set(this.errors, item, "");
-        console.log(this.errors);
-        if (!this.errors[item]) {
-          this.$set(this.errors, item, "Required");
-          error = true;
-        }
-      });
-      return !error;
+    validate(key = null) {
+      if (key) {
+        const field = {};
+        field[key] = this.fields[key];
+        this.errors[key] = formValidation(field)[key];
+        return;
+      }
+      this.errors = formValidation(this.fields);
+      return !this.errors.hasError;
     },
     async login() {
-      // if (!this.validate()) return;
+      if (!this.validate()) return;
       try {
         const data = {
-          email: this.email,
-          password: this.password,
+          email: this.fields.email,
+          password: this.fields.password,
         };
         await this.$auth.loginWith("local", {
           data,
         });
+        if (!this.$auth.user.is_onboarded) {
+          return this.$router.push("/on-boarding/");
+        }
         await this.$store.commit("setSnackbar", {
           show: true,
           text: "Successfully logged in",
@@ -91,7 +99,7 @@ export default {
       } catch (e) {
         this.$store.commit("setSnackbar", {
           show: true,
-          text: e.response.data.detail,
+          text: e.response ? e.response.data.detail : e,
           type: "error",
         });
       }

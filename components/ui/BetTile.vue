@@ -1,13 +1,7 @@
 <template>
   <!-- amount, user_who_has_best, match date,  -->
-  <div
-    v-if="!isHidden"
-    style="margin-bottom: 23px"
-    :class="isAccepted ? 'hidden' : ''"
-    class="bet-tile"
-  >
-    <div class="bet-tile_title">Bet Received</div>
-    <div class="bet-tile_from-user">from {{ request.opponent.email }}</div>
+  <div v-if="!isHidden" :class="isAccepted ? 'hidden' : ''" class="bet-tile">
+    <div class="bet-tile_from-user">{{ request.opponent.email }}</div>
     <div class="bet-tile_amount">${{ request.amount }}</div>
     <div class="bet-tile_game">
       {{ request.match.homeTeam.name }} vs {{ request.match.awayTeam.name }}

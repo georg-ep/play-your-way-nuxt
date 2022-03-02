@@ -1,22 +1,26 @@
 <template>
   <div>
     <div class="nav-bar">
-      <img
-        class="burger-menu"
-        src="~/assets/icons/burger-menu-white.svg"
-        @click="modal = !modal"
-      />
-      <div class="actions">
-        <Button
-          class="button_trailing"
-          :text="trailingButtonText"
-          @click="handleClick"
+      <div>
+        <img
+          class="burger-menu"
+          src="~/assets/icons/burger-menu-white.svg"
+          @click="modal = !modal"
         />
-        <Button
-          v-if="userAuth"
-          class="button_trailing"
-          :text="'Logout'"
-          @click="logout"
+      </div>
+      <div class="actions">
+        <img
+          class="avatar"
+          src="~/assets/images/default.jpg"
+          alt=""
+          @click="toggleMenu"
+        />
+        <Dropdown
+          :visible="showMenu"
+          :right="'25px'"
+          :width="'300px'"
+          :items="navItems"
+          @click-item="itemClick"
         />
       </div>
     </div>
@@ -29,41 +33,63 @@
           :class="tileSelected(index) ? 'selected-item' : ''"
           @click="toRoute(index)"
         >
-          {{ item }}
+          <div class="heading">
+            <Notification v-if="index === 1" :count="receivedBets" />
+            {{ item.text }}
+          </div>
+          <div>
+            {{ item.icon }}
+          </div>
         </div>
       </div>
       <div class="content-body">
         <slot></slot>
       </div>
+      <Credits />
     </div>
   </div>
 </template>
 
 <script>
-import Button from "~/components/ui/Button.vue";
+import Dropdown from "~/components/ui/Dropdown.vue";
+import Credits from "~/components/ui/Credits.vue";
+import Notification from "~/components/ui/Notification.vue";
 export default {
   name: "Sidebar",
   components: {
-    Button,
+    Dropdown,
+    Credits,
+    Notification,
   },
   data() {
     return {
-      items: ["🏠 Home", "💰 My bets", "⚽️ Matches", "👥 Friends"],
+      showMenu: false,
+      items: [
+        { text: "Home", icon: "🏠" },
+        { text: "My-bets", icon: "💰" },
+        { text: "Matches", icon: "⚽️" },
+      ],
       modal: false,
     };
   },
   computed: {
+    navItems() {
+      return [`Hello, ${this.$auth.user.first_name}`, "Profile", "Logout"];
+    },
     tileSelected() {
       return (index) => {
         const path = this.$route.path;
         const config = {
-          0: path === "/",
+          0: path === "/" || path.includes("profile"),
           1: path.includes("my-bets"),
           2: path.includes("matches") || path.includes("fixture"),
           3: path.includes("friends"),
         };
         return config[index];
       };
+    },
+    receivedBets() {
+      return this.$auth.user.received_bets_amount;
     },
     userAuth() {
       return this.$auth.$state.loggedIn;
@@ -73,6 +99,18 @@ export default {
     },
   },
   methods: {
+    async itemClick(item) {
+      this.showMenu = false;
+      if (item.toLowerCase() === "profile") {
+        this.$router.push("/profile/");
+      }
+      if (item.toLowerCase() === "logout") {
+        await this.$auth.logout();
+      }
+    },
+    toggleMenu() {
+      this.showMenu = !this.showMenu;
+    },
     toRoute(index) {
       const config = {
         0: "/",
@@ -87,7 +125,7 @@ export default {
       await this.$auth.logout();
       this.$router.push("/login");
     },
-    handleClick() {
+    handleClick(item) {
       if (this.userAuth) {
         // TODO nav to user profile
         return false;
