@@ -122,6 +122,10 @@ body {
   margin-bottom: 36px;
 }
 
+.ml-16 {
+  margin-left: 16px;
+}
+
 .mb-48 {
   margin-bottom: 48px;
 }
@@ -189,7 +193,7 @@ body {
   outline: 2px solid white;
   background: rgba($color: white, $alpha: 0.4);
   border-radius: 2px;
-  padding: 20px;
+  padding: 10px;
   
   &_lighter {
     background: rgba($color: white, $alpha: 0.1);

@@ -1,12 +1,15 @@
 <template>
   <div>
     <div class="nav-bar">
-      <div>
+      <div class="content-left">
         <img
           class="burger-menu"
           src="~/assets/icons/burger-menu-white.svg"
           @click="modal = !modal"
         />
+        <div class="content-container content-container_lighter">
+          Hello {{ $auth.user.first_name }}
+        </div>
       </div>
       <div class="actions">
         <img
@@ -74,7 +77,7 @@ export default {
   },
   computed: {
     navItems() {
-      return [`Hello, ${this.$auth.user.first_name}`, "Profile", "Logout"];
+      return ["Profile", "Logout"];
     },
     tileSelected() {
       return (index) => {

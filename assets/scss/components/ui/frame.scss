@@ -71,19 +71,23 @@
   justify-content: space-between;
   border-bottom: 2px solid rgba($color: white, $alpha: 0.2);
 
-  .burger-menu {
+  .content-left {
     margin-left: 12px;
-    height: 36px;
-    display: none;
-
-    @media (max-width: 1000px) {
-      display: block;
-    }
-
-    &:hover {
-      cursor: pointer;
+    
+    .burger-menu {
+      height: 36px;
+      display: none;
+  
+      @media (max-width: 1000px) {
+        display: block;
+      }
+  
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
+
 
   .actions {
     display: flex;

@@ -6,12 +6,17 @@
         <div class="headline_large">Hello {{ $auth.user.first_name }} 👋</div>
       </div>
     </div>
-    <div class="sub-container match-grid">
-      <UpcomingMatch
-        v-for="(match, idx) in matches.slice(0, 4)"
-        :key="`match_${idx}`"
-        :match="match"
-      />
+    <div class="sub-container">
+      <div class="page-headline ml-16" style="font-weight: bold">
+        Upcoming matches
+      </div>
+      <div class="match-grid">
+        <UpcomingMatch
+          v-for="(match, idx) in matches.slice(0, 4)"
+          :key="`match_${idx}`"
+          :match="match"
+        />
+      </div>
     </div>
   </div>
 </template>
